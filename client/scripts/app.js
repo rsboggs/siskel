@@ -16,16 +16,21 @@ var Movies = Backbone.Collection.extend({
 
   initialize: function() {
     // your code here
+    this.on('change', function(){
+      this.sort();
+    }, this)
+
   },
 
   comparator: 'title',
 
   sortByField: function(field) {
     this.comparator = field;
+    this.sort();
   }
 
 });
-
+//-------------------------------------------------------//
 var AppView = Backbone.View.extend({
 
   events: {
