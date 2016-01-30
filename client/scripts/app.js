@@ -15,7 +15,6 @@ var Movies = Backbone.Collection.extend({
   model: Movie,
 
   initialize: function() {
-    // your code here
     this.on('change', function(){
       this.sort();
     }, this)
@@ -50,7 +49,7 @@ var AppView = Backbone.View.extend({
   }
 
 });
-
+//-------------------------------------------------------//
 var MovieView = Backbone.View.extend({
 
   template: _.template('<div class="movie"> \
@@ -63,7 +62,7 @@ var MovieView = Backbone.View.extend({
                         </div>'),
 
   initialize: function() {
-    // your code here
+    this.model.on('change', this.render, this)
   },
 
   events: {
@@ -71,7 +70,7 @@ var MovieView = Backbone.View.extend({
   },
 
   handleClick: function() {
-    // your code here
+    this.model.toggleLike();
   },
 
   render: function() {
@@ -80,14 +79,15 @@ var MovieView = Backbone.View.extend({
   }
 
 });
-
+//-------------------------------------------------------//
 var MoviesView = Backbone.View.extend({
 
   initialize: function() {
-    // your code here
+    this.collection.on('sort', this.render, this);
   },
 
   render: function() {
+    console.log(this);
     this.$el.empty();
     this.collection.forEach(this.renderMovie, this);
   },
